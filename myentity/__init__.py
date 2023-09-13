@@ -70,9 +70,6 @@ class myentity(thesdk):
         '''Guideline: Define model depencies of executions in `run` method.
 
         '''
-        if len(arg)>0:
-            self.par=True      #flag for parallel processing
-            self.queue=arg[0]  #multiprocessing.queue as the first argument
         if self.model=='py':
             self.main()
 
