@@ -25,6 +25,7 @@ if not (os.path.abspath('../../thesdk') in sys.path):
 
 from thesdk import *
 
+import traceback
 import numpy as np
 
 class myentity(thesdk):
@@ -70,8 +71,15 @@ class myentity(thesdk):
         '''Guideline: Define model depencies of executions in `run` method.
 
         '''
-        if self.model=='py':
-            self.main()
+        try:
+            if self.model=='py':
+                self.main()
+        except:
+            if self.par:
+                self.queue.put({**self.IOS.Members, **self.extracts.Members})
+            self.print_log(type='W', msg='Something went wrong with running the simulation')
+            self.print_log(type='W', msg=traceback.format_exc())
+
 
 if __name__=="__main__":
     import argparse
